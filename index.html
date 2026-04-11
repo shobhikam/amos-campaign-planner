@@ -1,0 +1,1449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AMOS — Campaign Planner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:        #1a1512;
+    --ink-soft:   #3d332c;
+    --paper:      #faf6f0;
+    --paper-warm: #f5ede0;
+    --cream:      #ede1c9;
+    --gold:       #b8924a;
+    --gold-dark:  #8a6a2e;
+    --crimson:    #9c2a2a;
+    --crimson-dark:#6f1a1a;
+    --sage:       #5a7a4a;
+    --sage-dark:  #3d5a2e;
+    --defend:     #9c2a2a;
+    --invest:     #5a7a4a;
+    --border:     #d4c6a8;
+    --shadow:     0 1px 0 rgba(26,21,18,0.04), 0 12px 40px -12px rgba(26,21,18,0.18);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background:
+      radial-gradient(ellipse at top left, rgba(184, 146, 74, 0.08), transparent 50%),
+      radial-gradient(ellipse at bottom right, rgba(156, 42, 42, 0.05), transparent 50%),
+      var(--paper);
+    min-height: 100vh;
+  }
+
+  .page {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 60px 48px 120px;
+  }
+
+  @media (max-width: 768px) {
+    .page { padding: 40px 24px 80px; }
+  }
+
+  /* ═══════ MASTHEAD ═══════ */
+  .masthead {
+    border-top: 3px double var(--ink);
+    border-bottom: 1px solid var(--ink);
+    padding: 32px 0 28px;
+    margin-bottom: 48px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 32px;
+    align-items: baseline;
+  }
+
+  .brand {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: 56px;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    font-variation-settings: "opsz" 144;
+    color: var(--ink);
+  }
+
+  .brand sup {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--gold-dark);
+    vertical-align: super;
+    letter-spacing: 0.02em;
+    margin-left: 4px;
+  }
+
+  .masthead-center {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.24em;
+    color: var(--ink-soft);
+    text-align: center;
+    line-height: 1.7;
+  }
+  .masthead-center strong { color: var(--ink); font-weight: 600; }
+
+  .masthead-right {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-soft);
+    text-align: right;
+    line-height: 1.7;
+  }
+
+  @media (max-width: 768px) {
+    .masthead { grid-template-columns: 1fr; gap: 16px; }
+    .masthead-center, .masthead-right { text-align: left; }
+    .brand { font-size: 42px; }
+  }
+
+  /* ═══════ HERO ═══════ */
+  .hero {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 64px;
+    margin-bottom: 72px;
+    align-items: start;
+  }
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; gap: 32px; }
+  }
+
+  .hero-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: clamp(40px, 5.5vw, 76px);
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+    margin: 0 0 24px;
+    font-variation-settings: "opsz" 144;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--gold-dark);
+  }
+
+  .hero-title .crimson {
+    color: var(--crimson);
+    font-weight: 500;
+  }
+
+  .hero-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 560px;
+    margin: 0 0 32px;
+  }
+
+  .hero-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    padding-top: 16px;
+    border-top: 1px dashed var(--border);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .hero-meta span { color: var(--ink); }
+
+  /* Verdict card (hero right) */
+  .verdict-card {
+    border: 1px solid var(--border);
+    background: linear-gradient(180deg, var(--paper-warm) 0%, var(--cream) 100%);
+    padding: 36px 32px 32px;
+    position: relative;
+    box-shadow: var(--shadow);
+  }
+
+  .verdict-card::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: -1px; right: -1px; bottom: -1px;
+    border: 1px solid var(--gold);
+    pointer-events: none;
+    margin: 6px;
+  }
+
+  .verdict-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--ink-soft);
+    margin-bottom: 12px;
+  }
+
+  .verdict-headline {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--sage-dark);
+    margin-bottom: 24px;
+    font-variation-settings: "opsz" 144;
+  }
+
+  .verdict-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 8px 0;
+    border-bottom: 1px dotted var(--border);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+  .verdict-row:last-of-type { border-bottom: none; }
+  .verdict-row strong {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 18px;
+    color: var(--ink);
+  }
+  .verdict-row .delta {
+    color: var(--sage-dark);
+    font-weight: 600;
+  }
+
+  /* ═══════ SECTION HEADERS ═══════ */
+  .section {
+    margin-bottom: 80px;
+  }
+
+  .section-head {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 24px;
+    align-items: baseline;
+    margin-bottom: 36px;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 16px;
+  }
+
+  .section-number {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: 56px;
+    line-height: 0.9;
+    color: var(--crimson);
+    font-variation-settings: "opsz" 144;
+  }
+
+  .section-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 1.05;
+    margin: 0;
+    letter-spacing: -0.02em;
+  }
+  .section-title em {
+    font-style: italic;
+    color: var(--gold-dark);
+    font-weight: 300;
+  }
+
+  .section-kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--ink-soft);
+    margin-top: 8px;
+  }
+
+  /* ═══════ OBJECTIVE INPUT BLOCK ═══════ */
+  .objective-block {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 28px 36px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 32px;
+    position: relative;
+  }
+  .objective-block::before {
+    content: "$ amos --objective";
+    display: block;
+    color: var(--gold);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-bottom: 12px;
+  }
+  .objective-block .typed {
+    font-size: 18px;
+    color: var(--cream);
+  }
+  .objective-block .typed::before { content: "▸ "; color: var(--gold); }
+
+  /* ═══════ COHORT CARDS ═══════ */
+  .cohort-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  @media (max-width: 768px) {
+    .cohort-grid { grid-template-columns: 1fr; }
+  }
+
+  .cohort-card {
+    border: 1px solid var(--border);
+    background: var(--paper-warm);
+    padding: 28px 28px 24px;
+    position: relative;
+    transition: transform 0.2s ease;
+  }
+  .cohort-card:hover { transform: translateY(-2px); }
+
+  .cohort-rank {
+    position: absolute;
+    top: -16px;
+    left: 24px;
+    background: var(--ink);
+    color: var(--cream);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    padding: 6px 12px;
+    text-transform: uppercase;
+  }
+
+  .cohort-label {
+    position: absolute;
+    top: -14px;
+    right: 24px;
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    padding: 5px 10px;
+    text-transform: uppercase;
+  }
+  .cohort-label.defend {
+    background: var(--crimson);
+    color: var(--paper);
+  }
+  .cohort-label.invest {
+    background: var(--sage);
+    color: var(--paper);
+  }
+
+  .cohort-name {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 24px;
+    letter-spacing: -0.01em;
+    margin: 20px 0 14px;
+    line-height: 1.1;
+  }
+
+  .cohort-stats {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .cohort-stats strong {
+    color: var(--ink);
+    font-size: 14px;
+    font-family: 'Fraunces', serif;
+    display: block;
+    margin-top: 2px;
+  }
+
+  .cohort-insight {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    border-left: 2px solid var(--gold);
+    padding: 8px 0 8px 16px;
+    margin: 14px 0 18px;
+  }
+
+  .cohort-reasoning {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+  .cohort-reasoning::before {
+    content: "→ ";
+    color: var(--gold-dark);
+    font-weight: 600;
+  }
+
+  /* ═══════ CHECKPOINT CALLOUT ═══════ */
+  .checkpoint {
+    margin: 56px 0;
+    padding: 40px 48px;
+    border: 1px solid var(--ink);
+    background: var(--paper);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 32px;
+    align-items: center;
+    position: relative;
+  }
+  .checkpoint::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border: 1px solid var(--crimson);
+    margin: 6px;
+    pointer-events: none;
+  }
+
+  .checkpoint-icon {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: 64px;
+    line-height: 1;
+    color: var(--crimson);
+    font-variation-settings: "opsz" 144;
+  }
+
+  .checkpoint-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 22px;
+    letter-spacing: -0.01em;
+    margin: 0 0 8px;
+  }
+
+  .checkpoint-body {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    margin: 0;
+    max-width: 620px;
+  }
+
+  @media (max-width: 768px) {
+    .checkpoint { grid-template-columns: 1fr; padding: 28px; gap: 16px; }
+  }
+
+  /* ═══════ CREATIVE ROUTES ═══════ */
+  .creative-cohort {
+    margin-bottom: 40px;
+  }
+
+  .creative-cohort-head {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 20px;
+  }
+
+  .creative-cohort-name {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 20px;
+    letter-spacing: -0.01em;
+  }
+
+  .creative-cohort-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--gold-dark);
+  }
+
+  .api-badge {
+    margin-left: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-soft);
+    background: var(--cream);
+    padding: 4px 8px;
+    border: 1px solid var(--border);
+    white-space: nowrap;
+  }
+
+  .routes-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  @media (max-width: 768px) { .routes-grid { grid-template-columns: 1fr; } }
+
+  .route-card {
+    border: 1px solid var(--border);
+    padding: 22px 24px;
+    background: var(--paper);
+    position: relative;
+  }
+
+  .route-name {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--crimson-dark);
+    margin: 0 0 10px;
+    line-height: 1.25;
+  }
+  .route-name::before { content: '"'; }
+  .route-name::after { content: '"'; }
+
+  .route-field {
+    margin-bottom: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+  .route-field:last-child { margin-bottom: 0; }
+
+  .route-field-label {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--gold-dark);
+    margin-bottom: 3px;
+  }
+
+  .compliance {
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--border);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--sage-dark);
+  }
+  .compliance::before { content: "✓ "; font-weight: 700; }
+
+  /* ═══════ MEDIA TABLE ═══════ */
+  .media-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    margin-bottom: 32px;
+  }
+  .media-table th {
+    text-align: left;
+    padding: 12px 16px;
+    background: var(--ink);
+    color: var(--cream);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 500;
+  }
+  .media-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+    color: var(--ink-soft);
+    vertical-align: top;
+  }
+  .media-table tr.cohort-header td {
+    background: var(--cream);
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--ink);
+    padding: 14px 16px 8px;
+  }
+  .media-table tr.cohort-header .eff {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--gold-dark);
+    text-align: right;
+    font-weight: 500;
+  }
+  .media-table .channel-name { color: var(--ink); font-weight: 500; }
+  .media-table .pct {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  /* ═══════ BUDGET CHAIN ═══════ */
+  .budget-header {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 48px;
+    padding: 24px;
+    background: var(--ink);
+    color: var(--cream);
+  }
+  @media (max-width: 768px) { .budget-header { grid-template-columns: 1fr; } }
+
+  .budget-stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .budget-stat-value {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 32px;
+    letter-spacing: -0.02em;
+    font-variation-settings: "opsz" 144;
+  }
+  .budget-stat-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: #a8a296;
+    margin-top: 2px;
+  }
+
+  .chain-cohort {
+    margin-bottom: 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--border);
+  }
+  .chain-cohort:last-child { border-bottom: none; }
+
+  .chain-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .chain-head-left {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+  }
+  .chain-cohort-name {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 22px;
+    letter-spacing: -0.01em;
+  }
+  .chain-cohort-rank {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+  }
+  .chain-allocated {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--gold-dark);
+  }
+  .chain-allocated strong {
+    color: var(--ink);
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    font-weight: 600;
+    margin-right: 4px;
+  }
+
+  .chain-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    margin-bottom: 16px;
+  }
+  .chain-table th {
+    text-align: left;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--ink);
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--ink-soft);
+    font-weight: 500;
+  }
+  .chain-table th:not(:first-child),
+  .chain-table td:not(:first-child) { text-align: right; }
+  .chain-table td {
+    padding: 10px 12px;
+    border-bottom: 1px dotted var(--border);
+    color: var(--ink-soft);
+  }
+  .chain-table td.channel { color: var(--ink); }
+  .chain-table tr.sum-row td {
+    border-top: 1px solid var(--ink);
+    border-bottom: none;
+    padding-top: 12px;
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .chain-table tr.dedup-row td {
+    color: var(--crimson);
+    font-style: italic;
+  }
+  .chain-table tr.unique-row td {
+    color: var(--ink);
+    font-weight: 700;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 12px;
+  }
+
+  .chain-verdict-row {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 20px;
+    align-items: center;
+    padding: 16px 20px;
+    background: var(--paper-warm);
+    border-left: 4px solid;
+  }
+  .chain-verdict-row.cohort-limited { border-color: var(--sage); }
+  .chain-verdict-row.budget-limited { border-color: var(--gold); }
+
+  .constraint-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    padding: 5px 10px;
+    color: var(--paper);
+    white-space: nowrap;
+  }
+  .cohort-limited .constraint-tag { background: var(--sage-dark); }
+  .budget-limited .constraint-tag { background: var(--gold-dark); }
+
+  .chain-verdict-body {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+  .chain-verdict-body strong {
+    color: var(--ink);
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .chain-uplift {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 26px;
+    color: var(--crimson);
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+
+  /* ═══════ FINAL VERDICT BIG ═══════ */
+  .final-verdict {
+    margin-top: 64px;
+    padding: 56px 48px;
+    background: linear-gradient(135deg, var(--ink) 0%, #2a2420 100%);
+    color: var(--cream);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .final-verdict::before {
+    content: "";
+    position: absolute;
+    inset: 12px;
+    border: 1px solid var(--gold);
+    pointer-events: none;
+  }
+  .final-verdict::after {
+    content: "";
+    position: absolute;
+    inset: 18px;
+    border: 1px solid rgba(184, 146, 74, 0.3);
+    pointer-events: none;
+  }
+
+  .final-verdict-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .final-verdict-main {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: clamp(44px, 6vw, 72px);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin-bottom: 12px;
+    position: relative;
+    z-index: 1;
+    font-variation-settings: "opsz" 144;
+  }
+  .final-verdict-main em {
+    font-style: italic;
+    color: var(--gold);
+    font-weight: 400;
+  }
+
+  .final-verdict-numbers {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px dashed rgba(184, 146, 74, 0.3);
+    position: relative;
+    z-index: 1;
+    flex-wrap: wrap;
+  }
+  .fvn-block {
+    text-align: center;
+  }
+  .fvn-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #a8a296;
+    margin-bottom: 6px;
+  }
+  .fvn-value {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 28px;
+    color: var(--cream);
+    font-variation-settings: "opsz" 144;
+  }
+  .fvn-value.target { color: var(--cream); }
+  .fvn-value.projected { color: var(--gold); }
+  .fvn-value.buffer { color: #7fa068; }
+
+  /* ═══════ ARCH DIAGRAM ═══════ */
+  .arch {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    margin: 32px 0;
+  }
+  @media (max-width: 900px) { .arch { grid-template-columns: repeat(2, 1fr); gap: 12px; } }
+
+  .arch-agent {
+    padding: 20px 16px;
+    border: 1px solid var(--border);
+    background: var(--paper-warm);
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    line-height: 1.4;
+    position: relative;
+  }
+  .arch-agent.llm { background: var(--cream); border-color: var(--gold); }
+  .arch-num {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: 28px;
+    color: var(--crimson);
+    display: block;
+    margin-bottom: 6px;
+    font-variation-settings: "opsz" 144;
+  }
+  .arch-name {
+    font-family: 'Fraunces', serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .arch-type {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-soft);
+  }
+  .arch-agent.llm .arch-type { color: var(--gold-dark); font-weight: 600; }
+
+  /* ═══════ FOOTER ═══════ */
+  .footer {
+    margin-top: 120px;
+    padding-top: 32px;
+    border-top: 3px double var(--ink);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: end;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+  .footer-left strong {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--ink);
+    display: block;
+    margin-bottom: 6px;
+  }
+  .footer-right {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    text-align: right;
+    line-height: 1.8;
+  }
+  @media (max-width: 768px) { .footer { grid-template-columns: 1fr; } .footer-right { text-align: left; } }
+
+  /* ═══════ ENTRY ANIMATION ═══════ */
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .masthead, .hero, .section, .final-verdict, .footer {
+    animation: rise 0.8s ease-out backwards;
+  }
+  .hero { animation-delay: 0.1s; }
+  .section:nth-of-type(1) { animation-delay: 0.2s; }
+  .section:nth-of-type(2) { animation-delay: 0.3s; }
+  .section:nth-of-type(3) { animation-delay: 0.4s; }
+  .section:nth-of-type(4) { animation-delay: 0.5s; }
+  .final-verdict { animation-delay: 0.6s; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ═══════════════════════════════════════════════ MASTHEAD ═══════════════════════════════════════════════ -->
+  <header class="masthead">
+    <div class="brand">AMOS<sup>research</sup></div>
+    <div class="masthead-center">
+      <strong>The Agentic Marketing Operating System</strong><br>
+      Campaign Planning Layer — Built Live for Claude@Stanford Buildathon
+    </div>
+    <div class="masthead-right">
+      APR 11 · 2026<br>
+      SHOBHIKA MATHUR · MSx '26<br>
+      ADVISED BY PROF. YUYAN WANG
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════ HERO ═══════════════════════════════════════════════ -->
+  <section class="hero">
+    <div>
+      <h1 class="hero-title">
+        Turn a <em>business objective</em> into a<br>
+        <span class="crimson">cohort-segmented brief</span><br>
+        in two minutes — not two months.
+      </h1>
+      <p class="hero-sub">
+        AMOS is a five-agent pipeline that consolidates brand context, ranks customer cohorts,
+        generates brand-compliant creative through the Claude API, allocates media budget with
+        budget-driven reach modeling, and produces a CFO-interrogatable revenue forecast —
+        every number traceable to a specific cell in a marketer-editable spreadsheet.
+      </p>
+      <div class="hero-meta">
+        <span>CASE · Taneira Diwali 2026</span>
+        <span>BUDGET · ₹50 Cr</span>
+        <span>4 AGENTS DETERMINISTIC · 1 LLM</span>
+      </div>
+    </div>
+
+    <div class="verdict-card">
+      <div class="verdict-label">Forecast at a Glance</div>
+      <div class="verdict-headline">On Track<br>with 9.9% buffer.</div>
+      <div class="verdict-row"><span>Target uplift</span><strong>₹177.4 Cr</strong></div>
+      <div class="verdict-row"><span>Projected (risk-adj.)</span><strong>₹194.9 Cr</strong></div>
+      <div class="verdict-row"><span>Delta</span><strong class="delta">+₹17.5 Cr</strong></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ 01 — OBJECTIVE & CONTEXT ═══════════════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-number">01</div>
+      <div>
+        <h2 class="section-title">Objective &amp; <em>Strategic Context</em></h2>
+        <div class="section-kicker">Agents 1 &amp; 2 · Context consolidation &amp; cohort ranking</div>
+      </div>
+    </div>
+
+    <div class="objective-block">
+      <div class="typed">Grow Taneira festive-season revenue 40% YoY</div>
+    </div>
+
+    <div class="arch">
+      <div class="arch-agent">
+        <span class="arch-num">01</span>
+        <span class="arch-name">Objective Intake</span>
+        <span class="arch-type">Deterministic</span>
+      </div>
+      <div class="arch-agent">
+        <span class="arch-num">02</span>
+        <span class="arch-name">Context &amp; Strategy</span>
+        <span class="arch-type">Deterministic</span>
+      </div>
+      <div class="arch-agent llm">
+        <span class="arch-num">03</span>
+        <span class="arch-name">Creative Director</span>
+        <span class="arch-type">Claude API</span>
+      </div>
+      <div class="arch-agent">
+        <span class="arch-num">04</span>
+        <span class="arch-name">Media Planner</span>
+        <span class="arch-type">Deterministic</span>
+      </div>
+      <div class="arch-agent">
+        <span class="arch-num">05</span>
+        <span class="arch-name">Impact Forecaster</span>
+        <span class="arch-type">Deterministic</span>
+      </div>
+    </div>
+
+    <div class="cohort-grid">
+
+      <div class="cohort-card">
+        <div class="cohort-rank">#1 · Rank</div>
+        <div class="cohort-label defend">Defend</div>
+        <h3 class="cohort-name">Traditional Repeat</h3>
+        <div class="cohort-stats">
+          <div>Revenue share<strong>52.1%</strong></div>
+          <div>Growth<strong>Low</strong></div>
+          <div>Competition<strong>Low</strong></div>
+          <div>Score<strong>74.3</strong></div>
+        </div>
+        <div class="cohort-insight">Appreciate the crafts of India, looking to expand their collection of sarees. Buy a new saree for every Diwali. Trust Taneira.</div>
+        <div class="cohort-reasoning">Largest revenue block (52.1%) with Low growth potential — this cohort is near saturation. Low competitive intensity means Taneira has a strong position here. Protect the base; don't over-invest for marginal gains.</div>
+      </div>
+
+      <div class="cohort-card">
+        <div class="cohort-rank">#2 · Rank</div>
+        <div class="cohort-label invest">Invest</div>
+        <h3 class="cohort-name">Traditional New</h3>
+        <div class="cohort-stats">
+          <div>Revenue share<strong>28.4%</strong></div>
+          <div>Growth<strong>Medium</strong></div>
+          <div>Competition<strong>Medium</strong></div>
+          <div>Score<strong>63.0</strong></div>
+        </div>
+        <div class="cohort-insight">Appreciate Indian crafts. Buy a new saree every Diwali. Haven't heard of Taneira — don't know where the stores are.</div>
+        <div class="cohort-reasoning">28.4% revenue share with Medium growth potential and Medium competitive intensity. Room to grow — invest in acquisition and conversion to expand contribution.</div>
+      </div>
+
+      <div class="cohort-card">
+        <div class="cohort-rank">#3 · Rank</div>
+        <div class="cohort-label invest">Invest</div>
+        <h3 class="cohort-name">Trendy Repeat</h3>
+        <div class="cohort-stats">
+          <div>Revenue share<strong>13.4%</strong></div>
+          <div>Growth<strong>High</strong></div>
+          <div>Competition<strong>Medium</strong></div>
+          <div>Score<strong>67.0</strong></div>
+        </div>
+        <div class="cohort-insight">Want to embrace their tradition and roots but also want to express themselves through their outfit.</div>
+        <div class="cohort-reasoning">13.4% revenue share with High growth potential and Medium competitive intensity. Room to grow — invest in acquisition and conversion.</div>
+      </div>
+
+      <div class="cohort-card">
+        <div class="cohort-rank">#4 · Rank</div>
+        <div class="cohort-label invest">Invest</div>
+        <h3 class="cohort-name">Trendy New</h3>
+        <div class="cohort-stats">
+          <div>Revenue share<strong>6.1%</strong></div>
+          <div>Growth<strong>High</strong></div>
+          <div>Competition<strong>High</strong></div>
+          <div>Score<strong>52.7</strong></div>
+        </div>
+        <div class="cohort-insight">Want to embrace tradition but also express personal style. May not know how to wear a saree.</div>
+        <div class="cohort-reasoning">6.1% revenue share with High growth potential and High competitive intensity. Room to grow — invest in acquisition and education.</div>
+      </div>
+
+    </div>
+
+    <!-- HUMAN CHECKPOINT -->
+    <div class="checkpoint">
+      <div class="checkpoint-icon">✦</div>
+      <div>
+        <h3 class="checkpoint-title">Human Checkpoint — the marketer approves before execution</h3>
+        <p class="checkpoint-body">
+          The pipeline pauses here. No creative is generated, no media budget is allocated, no forecast is computed until the marketer approves the strategic direction above. This is deliberate: AMOS is a copilot, not a replacement. The agents surface reasoning; the human owns the decision. This is the ethics beat of the architecture.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ 02 — CREATIVE DIRECTION ═══════════════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-number">02</div>
+      <div>
+        <h2 class="section-title">Creative <em>Direction</em></h2>
+        <div class="section-kicker">Agent 3 · Powered by Claude Sonnet 4.5 · 4 API calls · $0.027 total</div>
+      </div>
+    </div>
+
+    <div class="creative-cohort">
+      <div class="creative-cohort-head">
+        <div class="creative-cohort-name">Traditional Repeat</div>
+        <div class="creative-cohort-tag">DEFEND · retention-angled</div>
+        <div class="api-badge">claude-sonnet-4-5 · $0.007</div>
+      </div>
+      <div class="routes-grid">
+        <div class="route-card">
+          <h4 class="route-name">The Weave Collector's Registry</h4>
+          <div class="route-field"><span class="route-field-label">Concept</span>A personalized collector's journey celebrating each regional weave they add to their wardrobe, with a beautifully designed registry documenting their craft heritage.</div>
+          <div class="route-field"><span class="route-field-label">Rationale</span>Deepens loyalty by honoring their existing collection. Transforms repeat buying into a meaningful craft preservation journey. Reinforces trust by acknowledging their discerning taste.</div>
+          <div class="compliance">Approved vocab: weave · craft · heritage · tradition</div>
+        </div>
+        <div class="route-card">
+          <h4 class="route-name">This Diwali, Another Heirloom</h4>
+          <div class="route-field"><span class="route-field-label">Concept</span>Position each annual Diwali saree purchase as adding to their legacy collection, featuring pure silk pieces worthy of being passed down through generations.</div>
+          <div class="route-field"><span class="route-field-label">Rationale</span>Speaks to their established Diwali buying ritual while elevating purchases from occasion-wear to timeless investment. Reinforces quality and craft over volume.</div>
+          <div class="compliance">Approved vocab: pure · timeless · occasion · celebration</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="creative-cohort">
+      <div class="creative-cohort-head">
+        <div class="creative-cohort-name">Traditional New</div>
+        <div class="creative-cohort-tag">INVEST · acquisition-angled</div>
+        <div class="api-badge">claude-sonnet-4-5 · $0.007</div>
+      </div>
+      <div class="routes-grid">
+        <div class="route-card">
+          <h4 class="route-name">Find Your Weave Home</h4>
+          <div class="route-field"><span class="route-field-label">Concept</span>A warm invitation campaign showcasing Taneira's store locations alongside the regional weaves each location houses, guiding saree collectors to discover their nearest craft destination.</div>
+          <div class="route-field"><span class="route-field-label">Rationale</span>Solves the awareness barrier by making store discovery feel like a journey to find authentic heritage. Positions Taneira as the accessible home for their growing collection.</div>
+          <div class="compliance">Approved vocab: weave · heritage · craft · pure</div>
+        </div>
+        <div class="route-card">
+          <h4 class="route-name">The Artisan Atlas</h4>
+          <div class="route-field"><span class="route-field-label">Concept</span>An episodic storytelling series mapping India's handloom regions to Taneira stores, featuring master artisans and their traditional patterns, ending each story with 'Now closer to you at...'</div>
+          <div class="route-field"><span class="route-field-label">Rationale</span>Educates the cohort on the crafts they already appreciate while building Taneira brand affinity through artisan narratives. Transforms store location awareness into celebration of tradition.</div>
+          <div class="compliance">Approved vocab: artisan · handloom · tradition · occasion</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="creative-cohort">
+      <div class="creative-cohort-head">
+        <div class="creative-cohort-name">Trendy Repeat</div>
+        <div class="creative-cohort-tag">INVEST · acquisition-angled</div>
+        <div class="api-badge">claude-sonnet-4-5 · $0.006</div>
+      </div>
+      <div class="routes-grid">
+        <div class="route-card">
+          <h4 class="route-name">Craft Meets Canvas</h4>
+          <div class="route-field"><span class="route-field-label">Concept</span>A campaign positioning designer blended silk sarees as wearable art where heritage weaves become the canvas for contemporary self-expression.</div>
+          <div class="route-field"><span class="route-field-label">Rationale</span>Speaks to the duality of wanting tradition with personal flair. Frames each saree as both craft and creative expression — validating their desire to honor roots while making bold style statements.</div>
+          <div class="compliance">Approved vocab: craft · heritage · weave · artisan</div>
+        </div>
+        <div class="route-card">
+          <h4 class="route-name">Rooted, Reimagined</h4>
+          <div class="route-field"><span class="route-field-label">Concept</span>Celebrate how pure silk traditions evolve through designer patterns that honor the handloom legacy while speaking a modern design language.</div>
+          <div class="route-field"><span class="route-field-label">Rationale</span>Positions their choice as evolution, not rejection of tradition. Appeals to their growth mindset and desire for uniqueness while maintaining cultural connection.</div>
+          <div class="compliance">Approved vocab: rooted · tradition · pure · handloom</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="creative-cohort">
+      <div class="creative-cohort-head">
+        <div class="creative-cohort-name">Trendy New</div>
+        <div class="creative-cohort-tag">INVEST · acquisition-angled</div>
+        <div class="api-badge">claude-sonnet-4-5 · $0.007</div>
+      </div>
+      <div class="routes-grid">
+        <div class="route-card">
+          <h4 class="route-name">Your Canvas, Your Heritage</h4>
+          <div class="route-field"><span class="route-field-label">Concept</span>Positions Taneira's designer blended silks as the canvas for self-expression, featuring young women styling sarees in contemporary ways while celebrating the craft and weave stories behind each piece.</div>
+          <div class="route-field"><span class="route-field-label">Rationale</span>Empowers the cohort to see tradition as a medium for personal style rather than a constraint. Educational component addresses styling uncertainty; design focus speaks to pattern preference.</div>
+          <div class="compliance">Approved vocab: heritage · craft · weave · celebration</div>
+        </div>
+        <div class="route-card">
+          <h4 class="route-name">Rooted in You</h4>
+          <div class="route-field"><span class="route-field-label">Concept</span>A storytelling campaign where each designer blended silk pattern becomes a conversation starter, connecting the wearer's personal milestones and occasions to the timeless tradition of the craft.</div>
+          <div class="route-field"><span class="route-field-label">Rationale</span>Frames tradition as something that enhances rather than dictates their personal narrative. Occasion-based approach gives them permission to experiment while feeling anchored.</div>
+          <div class="compliance">Approved vocab: rooted · tradition · occasion · timeless</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ 03 — MEDIA PLAN ═══════════════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-number">03</div>
+      <div>
+        <h2 class="section-title">Media <em>Allocation</em></h2>
+        <div class="section-kicker">Agent 4 · Best-fit channel selection · Rule-based budget allocation</div>
+      </div>
+    </div>
+
+    <table class="media-table">
+      <thead>
+        <tr>
+          <th style="width:30%">Channel</th>
+          <th style="width:20%">Effectiveness</th>
+          <th style="width:15%">Attribution</th>
+          <th style="width:15%">Budget %</th>
+          <th>Reasoning</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="cohort-header"><td colspan="4">Traditional Repeat · DEFEND</td><td class="eff">Weighted effectiveness: 1.451x</td></tr>
+        <tr><td class="channel-name">Email / CRM (house list)</td><td>1.50x</td><td>Direct</td><td class="pct">35%</td><td>Warm list · 2–3% open-to-purchase</td></tr>
+        <tr><td class="channel-name">Referral / word-of-mouth</td><td>1.45x</td><td>Direct</td><td class="pct">33%</td><td>10–15% conversion from referred leads</td></tr>
+        <tr><td class="channel-name">In-store clienteling</td><td>1.40x</td><td>Direct</td><td class="pct">32%</td><td>30–40% conversion on targeted outreach</td></tr>
+
+        <tr class="cohort-header"><td colspan="4">Traditional New · INVEST</td><td class="eff">Weighted effectiveness: 1.369x</td></tr>
+        <tr><td class="channel-name">Referral / word-of-mouth</td><td>1.45x</td><td>Direct</td><td class="pct">35%</td><td>10–15% conversion from referred leads</td></tr>
+        <tr><td class="channel-name">Cross-brand CRM (Tata ecosystem)</td><td>1.35x</td><td>Direct</td><td class="pct">33%</td><td>3–5% conversion from Tanishq/Westside/Titan lists</td></tr>
+        <tr><td class="channel-name">Google Search / Shopping</td><td>1.30x</td><td>Direct</td><td class="pct">32%</td><td>4–6% on high-intent queries</td></tr>
+
+        <tr class="cohort-header"><td colspan="4">Trendy Repeat · INVEST</td><td class="eff">Weighted effectiveness: 1.359x</td></tr>
+        <tr><td class="channel-name">Email / CRM (house list)</td><td>1.50x</td><td>Direct</td><td class="pct">37%</td><td>2–3% open-to-purchase on warm list</td></tr>
+        <tr><td class="channel-name">WhatsApp Business</td><td>1.30x</td><td>Direct</td><td class="pct">32%</td><td>8–12% click-to-store, 3–5% purchase</td></tr>
+        <tr><td class="channel-name">Influencer partnerships</td><td>1.25x</td><td>Indirect</td><td class="pct">31%</td><td>5–8% engagement-to-store-visit</td></tr>
+
+        <tr class="cohort-header"><td colspan="4">Trendy New · INVEST</td><td class="eff">Weighted effectiveness: 1.302x</td></tr>
+        <tr><td class="channel-name">Cross-brand CRM (Tata ecosystem)</td><td>1.35x</td><td>Direct</td><td class="pct">35%</td><td>3–5% conversion from Tata lists</td></tr>
+        <tr><td class="channel-name">Google Search / Shopping</td><td>1.30x</td><td>Direct</td><td class="pct">33%</td><td>4–6% on high-intent queries</td></tr>
+        <tr><td class="channel-name">Influencer partnerships</td><td>1.25x</td><td>Indirect</td><td class="pct">32%</td><td>5–8% engagement-to-store-visit</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ 04 — BUDGET → REACH → UPLIFT ═══════════════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-number">04</div>
+      <div>
+        <h2 class="section-title">Budget → Reach → <em>Uplift</em></h2>
+        <div class="section-kicker">Agent 5 · CFO-interrogatable forecast · Every number traces to a spreadsheet cell</div>
+      </div>
+    </div>
+
+    <div class="budget-header">
+      <div>
+        <div class="budget-stat-label">Total Envelope</div>
+        <div class="budget-stat-value">₹50 Cr</div>
+        <div class="budget-stat-sub">Row 17 · Assumptions sheet</div>
+      </div>
+      <div>
+        <div class="budget-stat-label">Creative Production · 30%</div>
+        <div class="budget-stat-value">₹15.0 Cr</div>
+        <div class="budget-stat-sub">Row 18 · premium apparel ratio</div>
+      </div>
+      <div>
+        <div class="budget-stat-label">Media Pool · 70%</div>
+        <div class="budget-stat-value">₹35.0 Cr</div>
+        <div class="budget-stat-sub">Row 19 · deployed across cohorts</div>
+      </div>
+    </div>
+
+    <!-- Traditional Repeat -->
+    <div class="chain-cohort">
+      <div class="chain-head">
+        <div class="chain-head-left">
+          <div class="chain-cohort-name">Traditional Repeat</div>
+          <div class="chain-cohort-rank">Rank #1 · DEFEND</div>
+        </div>
+        <div class="chain-allocated"><strong>₹14.0 Cr</strong>allocated · 40% of media pool</div>
+      </div>
+      <table class="chain-table">
+        <thead>
+          <tr><th>Channel</th><th>Budget %</th><th>₹ Cr</th><th>Cost / reach</th><th>Reachable</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="channel">Email / CRM (house list)</td><td>35%</td><td>₹4.90</td><td>₹25</td><td>1,960,000</td></tr>
+          <tr><td class="channel">Referral / word-of-mouth</td><td>33%</td><td>₹4.62</td><td>₹250</td><td>184,800</td></tr>
+          <tr><td class="channel">In-store clienteling</td><td>32%</td><td>₹4.48</td><td>₹350</td><td>128,000</td></tr>
+          <tr class="sum-row"><td>Sum of channel reach</td><td></td><td></td><td></td><td>2,272,800</td></tr>
+          <tr class="dedup-row"><td>De-duplication haircut (−20%)</td><td></td><td></td><td></td><td>−454,560</td></tr>
+          <tr class="unique-row"><td>Unique customers reachable</td><td></td><td></td><td></td><td>1,818,240</td></tr>
+        </tbody>
+      </table>
+      <div class="chain-verdict-row cohort-limited">
+        <div class="constraint-tag">Cohort-limited</div>
+        <div class="chain-verdict-body">
+          <strong>Final reach: 300,000 / 300,000 customers · 100%</strong><br>
+          Budget exceeds what's needed. Every additional rupee reaches zero new customers — the constraint is cohort size, not budget.
+        </div>
+        <div class="chain-uplift">₹52.2 Cr</div>
+      </div>
+    </div>
+
+    <!-- Traditional New -->
+    <div class="chain-cohort">
+      <div class="chain-head">
+        <div class="chain-head-left">
+          <div class="chain-cohort-name">Traditional New</div>
+          <div class="chain-cohort-rank">Rank #2 · INVEST</div>
+        </div>
+        <div class="chain-allocated"><strong>₹12.2 Cr</strong>allocated · 35% of media pool</div>
+      </div>
+      <table class="chain-table">
+        <thead>
+          <tr><th>Channel</th><th>Budget %</th><th>₹ Cr</th><th>Cost / reach</th><th>Reachable</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="channel">Referral / word-of-mouth</td><td>35%</td><td>₹4.29</td><td>₹250</td><td>171,600</td></tr>
+          <tr><td class="channel">Cross-brand CRM (Tata ecosystem)</td><td>33%</td><td>₹4.04</td><td>₹90</td><td>448,888</td></tr>
+          <tr><td class="channel">Google Search / Shopping</td><td>32%</td><td>₹3.92</td><td>₹180</td><td>217,777</td></tr>
+          <tr class="sum-row"><td>Sum of channel reach</td><td></td><td></td><td></td><td>838,265</td></tr>
+          <tr class="dedup-row"><td>De-duplication haircut (−20%)</td><td></td><td></td><td></td><td>−167,653</td></tr>
+          <tr class="unique-row"><td>Unique customers reachable</td><td></td><td></td><td></td><td>670,612</td></tr>
+        </tbody>
+      </table>
+      <div class="chain-verdict-row budget-limited">
+        <div class="constraint-tag">Budget-limited</div>
+        <div class="chain-verdict-body">
+          <strong>Final reach: 670,612 / 700,000 customers · 96%</strong><br>
+          Close to saturation, but 29,388 customers remain out of reach. More media budget would directly convert to more people reached.
+        </div>
+        <div class="chain-uplift">₹73.4 Cr</div>
+      </div>
+    </div>
+
+    <!-- Trendy Repeat -->
+    <div class="chain-cohort">
+      <div class="chain-head">
+        <div class="chain-head-left">
+          <div class="chain-cohort-name">Trendy Repeat</div>
+          <div class="chain-cohort-rank">Rank #3 · INVEST</div>
+        </div>
+        <div class="chain-allocated"><strong>₹5.2 Cr</strong>allocated · 15% of media pool</div>
+      </div>
+      <table class="chain-table">
+        <thead>
+          <tr><th>Channel</th><th>Budget %</th><th>₹ Cr</th><th>Cost / reach</th><th>Reachable</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="channel">Email / CRM (house list)</td><td>37%</td><td>₹1.94</td><td>₹25</td><td>776,000</td></tr>
+          <tr><td class="channel">WhatsApp Business</td><td>32%</td><td>₹1.68</td><td>₹100</td><td>168,000</td></tr>
+          <tr><td class="channel">Influencer partnerships</td><td>31%</td><td>₹1.63</td><td>₹200</td><td>81,499</td></tr>
+          <tr class="sum-row"><td>Sum of channel reach</td><td></td><td></td><td></td><td>1,025,499</td></tr>
+          <tr class="dedup-row"><td>De-duplication haircut (−20%)</td><td></td><td></td><td></td><td>−205,100</td></tr>
+          <tr class="unique-row"><td>Unique customers reachable</td><td></td><td></td><td></td><td>820,399</td></tr>
+        </tbody>
+      </table>
+      <div class="chain-verdict-row budget-limited">
+        <div class="constraint-tag">Budget-limited</div>
+        <div class="chain-verdict-body">
+          <strong>Final reach: 820,399 / 900,000 customers · 91%</strong><br>
+          Nearly saturated. The last 9% requires disproportionate spend — diminishing returns territory.
+        </div>
+        <div class="chain-uplift">₹80.3 Cr</div>
+      </div>
+    </div>
+
+    <!-- Trendy New -->
+    <div class="chain-cohort">
+      <div class="chain-head">
+        <div class="chain-head-left">
+          <div class="chain-cohort-name">Trendy New</div>
+          <div class="chain-cohort-rank">Rank #4 · INVEST</div>
+        </div>
+        <div class="chain-allocated"><strong>₹3.5 Cr</strong>allocated · 10% of media pool</div>
+      </div>
+      <table class="chain-table">
+        <thead>
+          <tr><th>Channel</th><th>Budget %</th><th>₹ Cr</th><th>Cost / reach</th><th>Reachable</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="channel">Cross-brand CRM (Tata ecosystem)</td><td>35%</td><td>₹1.23</td><td>₹90</td><td>136,666</td></tr>
+          <tr><td class="channel">Google Search / Shopping</td><td>33%</td><td>₹1.16</td><td>₹180</td><td>64,444</td></tr>
+          <tr><td class="channel">Influencer partnerships</td><td>32%</td><td>₹1.12</td><td>₹200</td><td>56,000</td></tr>
+          <tr class="sum-row"><td>Sum of channel reach</td><td></td><td></td><td></td><td>257,110</td></tr>
+          <tr class="dedup-row"><td>De-duplication haircut (−20%)</td><td></td><td></td><td></td><td>−51,422</td></tr>
+          <tr class="unique-row"><td>Unique customers reachable</td><td></td><td></td><td></td><td>205,688</td></tr>
+        </tbody>
+      </table>
+      <div class="chain-verdict-row budget-limited">
+        <div class="constraint-tag">Budget-limited</div>
+        <div class="chain-verdict-body">
+          <strong>Final reach: 205,688 / 1,500,000 customers · 14%</strong><br>
+          The growth frontier. This cohort is where the next rupee would do the most work — high growth potential but severely under-funded at the current 10% media allocation.
+        </div>
+        <div class="chain-uplift">₹10.7 Cr</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ FINAL VERDICT ═══════════════════════════════════════════════ -->
+  <section class="final-verdict">
+    <div class="final-verdict-label">Forecast · Risk-Adjusted · −10% Haircut</div>
+    <div class="final-verdict-main">On Track<br>with <em>9.9% buffer.</em></div>
+    <div class="final-verdict-numbers">
+      <div class="fvn-block">
+        <div class="fvn-label">Target uplift</div>
+        <div class="fvn-value target">₹177.4 Cr</div>
+      </div>
+      <div class="fvn-block">
+        <div class="fvn-label">Projected</div>
+        <div class="fvn-value projected">₹194.9 Cr</div>
+      </div>
+      <div class="fvn-block">
+        <div class="fvn-label">Buffer</div>
+        <div class="fvn-value buffer">+₹17.5 Cr</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ FOOTER ═══════════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="footer-left">
+      <strong>AMOS — The Agentic Marketing Operating System</strong>
+      Built solo for the Claude@Stanford Buildathon, April 11 2026.
+      The campaign planning layer is the first built slice of a broader research agenda on
+      agent-native marketing operations, supervised by Prof. Yuyan Wang at Stanford GSB.
+    </div>
+    <div class="footer-right">
+      Shobhika Mathur<br>
+      MSx Fellow '26<br>
+      Stanford GSB
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
