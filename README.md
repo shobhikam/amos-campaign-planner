@@ -1,15 +1,13 @@
-# Agentic GTM Playbook
+# AMOS: Agentic Market-Facing Operating System
 ## Campaign Planning Layer
-
-A multi-agent workflow that converts a business objective into a structured GTM campaign plan: enriched context, target cohorts, media plan, creative directions, and a risk-adjusted revenue forecast. Built for the Claude@Stanford Buildathon (April 2026).
+A multi-agent workflow that converts a business objective into a structured campaign plan: enriched context, target cohorts, media plan, creative directions, and a risk-adjusted revenue forecast. Built for the Claude@Stanford Buildathon (April 2026).
 
 **Sample output:** https://amos-campaign-planner.vercel.app
 
 ## What it does
-
 **Input:** a business objective and a budget. Example: "Grow Taneira revenue during the festive period by 40%." The system also reads a pre-shared business context file (categories, cohorts, historical performance, brand values) so the plan is grounded in real business reality, not generic assumptions.
 
-**Output:** a structured GTM brief including:
+**Output:** a structured campaign brief including:
 - Enriched objective with competitive and category context
 - Target customer cohorts with growth vs. defend recommendations
 - Channel-by-channel media plan per cohort
@@ -17,7 +15,6 @@ A multi-agent workflow that converts a business objective into a structured GTM 
 - Risk-adjusted revenue forecast with budget and cohort constraints flagged
 
 ## How it works
-
 Five specialized agents run in sequence, each enriching the previous agent's output:
 
 1. **Context agent:** reads the pre-shared business file, pulls competitive signals, customer trends, and industry data, and enriches the raw business objective into deeper strategic context.
@@ -29,16 +26,14 @@ Five specialized agents run in sequence, each enriching the previous agent's out
 The system is deliberately built for human-in-the-loop decision making, not full automation.
 
 ## Built with
-
 - Claude (Anthropic) for the agent reasoning layer
 - Claude Code for orchestration and code generation
 - Python / PowerShell for local execution
 - Vercel for the rendered sample output
 
 ## Context
-
-Built as part of ongoing research at Stanford GSB on how GTM teams are being redesigned around agentic AI, supervised by Prof. Yuyan Wang. Full research overview: [The Agentic GTM Playbook](https://medium.com/@mathurshobhika7/the-agentic-marketing-playbook-an-overview-d6a141e08b83).
+Built as part of ongoing research at Stanford GSB on how market-facing functions (marketing, GTM, and growth) are being redesigned around agentic AI, supervised by Prof. Yuyan Wang. Full research overview: [The Agentic Market-Facing Operating System](https://medium.com/@mathurshobhika7/the-agentic-marketing-playbook-an-overview-d6a141e08b83).
 
 ## Status
+Work in progress. The Campaign Planning Layer is the first of several layers planned. The current version runs locally via command line; the output is rendered to the static Vercel page linked above as a sample. Future iterations will expose an interactive input surface so operators can run the workflow directly from the browser.
 
-Work in progress. The Campaign Planning Layer is the first of several layers planned. The current version runs locally via command line; the output is rendered to the static Vercel page linked above as a sample. Future iterations will expose an interactive input surface so GTM operators can run the workflow directly from the browser.
