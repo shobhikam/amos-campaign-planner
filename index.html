@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Agentic GTM Playbook · Campaign Planner</title>
+<title>AMOS · Campaign Planner · Okhiya Fall 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -64,28 +64,9 @@
     padding: 32px 0 28px;
     margin-bottom: 48px;
     display: grid;
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: 1fr auto;
     gap: 32px;
     align-items: baseline;
-  }
-
-  .brand {
-    font-family: 'Fraunces', serif;
-    font-weight: 900;
-    font-size: 56px;
-    line-height: 1;
-    letter-spacing: -0.04em;
-    font-variation-settings: "opsz" 144;
-    color: var(--ink);
-  }
-
-  .brand sup {
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--gold-dark);
-    vertical-align: super;
-    letter-spacing: 0.02em;
-    margin-left: 4px;
   }
 
   .masthead-center {
@@ -94,7 +75,6 @@
     text-transform: uppercase;
     letter-spacing: 0.24em;
     color: var(--ink-soft);
-    text-align: center;
     line-height: 1.7;
   }
   .masthead-center strong { color: var(--ink); font-weight: 600; }
@@ -109,8 +89,7 @@
 
   @media (max-width: 768px) {
     .masthead { grid-template-columns: 1fr; gap: 16px; }
-    .masthead-center, .masthead-right { text-align: left; }
-    .brand { font-size: 42px; }
+    .masthead-right { text-align: left; }
   }
 
   /* ═══════ HERO ═══════ */
@@ -118,7 +97,7 @@
     display: grid;
     grid-template-columns: 1.3fr 1fr;
     gap: 64px;
-    margin-bottom: 72px;
+    margin-bottom: 56px;
     align-items: start;
   }
 
@@ -230,6 +209,43 @@
     font-weight: 600;
   }
 
+  /* ═══════ CONTEXT BLOCK ═══════ */
+  .context {
+    border: 1px solid var(--border);
+    background: var(--paper-warm);
+    padding: 24px 28px;
+    margin-bottom: 64px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  @media (max-width: 768px) {
+    .context { grid-template-columns: 1fr; gap: 16px; }
+  }
+
+  .context-item {
+    font-family: 'Inter', sans-serif;
+  }
+
+  .context-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--gold-dark);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .context-value {
+    font-family: 'Fraunces', serif;
+    font-size: 15px;
+    color: var(--ink);
+    line-height: 1.45;
+  }
+
+  .context-value strong { font-weight: 600; }
+
   /* ═══════ SECTION HEADERS ═══════ */
   .section {
     margin-bottom: 80px;
@@ -289,7 +305,7 @@
     position: relative;
   }
   .objective-block::before {
-    content: "$ agp --objective";
+    content: "$ amos --objective";
     display: block;
     color: var(--gold);
     font-size: 11px;
@@ -953,9 +969,8 @@
 
   <!-- ═══════════════════════════════════════════════ MASTHEAD ═══════════════════════════════════════════════ -->
   <header class="masthead">
-    <div class="brand">AGP<sup>research</sup></div>
     <div class="masthead-center">
-      <strong>The Agentic GTM Playbook</strong><br>
+      <strong>AMOS · Agentic Market-Facing Operating System</strong><br>
       Campaign Planning Layer · Built for Claude@Stanford Buildathon
     </div>
     <div class="masthead-right">
@@ -980,18 +995,41 @@
         to a specific cell in an editable spreadsheet.
       </p>
       <div class="hero-meta">
-        <span>CASE · Taneira (Tata Group) Diwali 2026</span>
-        <span>BUDGET · ₹50 Cr (~$6M)</span>
+        <span>CASE · Okhiya (fictional US occasion-wear brand)</span>
+        <span>FALL 2026 LAUNCH</span>
+        <span>BUDGET · $6M</span>
         <span>4 AGENTS DETERMINISTIC · 1 LLM</span>
       </div>
     </div>
 
     <div class="verdict-card">
       <div class="verdict-label">Forecast at a Glance</div>
-      <div class="verdict-headline">On Track<br>with 9.9% buffer.</div>
-      <div class="verdict-row"><span>Target uplift</span><strong>₹177.4 Cr</strong></div>
-      <div class="verdict-row"><span>Projected (risk-adj.)</span><strong>₹194.9 Cr</strong></div>
-      <div class="verdict-row"><span>Delta</span><strong class="delta">+₹17.5 Cr</strong></div>
+      <div class="verdict-headline">On Track<br>with 6.7% buffer.</div>
+      <div class="verdict-row"><span>Target uplift</span><strong>$5.40M</strong></div>
+      <div class="verdict-row"><span>Projected (risk-adj.)</span><strong>$5.76M</strong></div>
+      <div class="verdict-row"><span>Delta</span><strong class="delta">+$0.36M</strong></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ CONTEXT BLOCK ═══════════════════════════════════════════════ -->
+  <section class="context">
+    <div class="context-item">
+      <div class="context-label">The brand</div>
+      <div class="context-value">
+        Okhiya is a US occasion-wear label, design-differentiated handcrafted pieces made by artisans, rooted in global craft traditions. Annual revenue <strong>$120M</strong>; Fall season concentration <strong>~30%</strong>.
+      </div>
+    </div>
+    <div class="context-item">
+      <div class="context-label">The customer base</div>
+      <div class="context-value">
+        <strong>265K addressable customers</strong> across four cohorts on a 2x2 of aesthetic preference (Classic vs Contemporary) and relationship status (Repeat vs New). The 2x2 is the strategic skeleton the pipeline reasons against.
+      </div>
+    </div>
+    <div class="context-item">
+      <div class="context-label">The campaign</div>
+      <div class="context-value">
+        Grow Fall 2026 launch revenue <strong>15% YoY</strong> against a <strong>$6M budget</strong> over a 12-week peak window, September through November, covering Fall collection launch through gala season.
+      </div>
     </div>
   </section>
 
@@ -1006,7 +1044,7 @@
     </div>
 
     <div class="objective-block">
-      <div class="typed">Grow Taneira festive-season revenue 40% YoY</div>
+      <div class="typed">Grow Okhiya Fall 2026 launch revenue 15% YoY</div>
     </div>
 
     <div class="arch">
@@ -1042,57 +1080,57 @@
       <div class="cohort-card">
         <div class="cohort-rank">#1 · Rank</div>
         <div class="cohort-label defend">Defend</div>
-        <h3 class="cohort-name">Traditional Repeat</h3>
+        <h3 class="cohort-name">Classic Repeat</h3>
         <div class="cohort-stats">
-          <div>Revenue share<strong>52.1%</strong></div>
+          <div>Revenue share<strong>42.0%</strong></div>
           <div>Growth<strong>Low</strong></div>
           <div>Competition<strong>Low</strong></div>
-          <div>Score<strong>74.3</strong></div>
+          <div>Score<strong>68.2</strong></div>
         </div>
-        <div class="cohort-insight">Appreciate the crafts of India, looking to expand their collection of sarees. Buy a new saree for every Diwali. Trust Taneira.</div>
-        <div class="cohort-reasoning">Largest revenue block (52.1%) with Low growth potential; this cohort is near saturation. Low competitive intensity means Taneira has a strong position here. Protect the base; don't over-invest for marginal gains.</div>
+        <div class="cohort-insight">Build a wardrobe of formal occasion pieces for the events on their calendar. Trust Okhiya for important moments.</div>
+        <div class="cohort-reasoning">Largest revenue block (42.0%) with Low growth potential; this cohort is near saturation. Low competitive intensity means Okhiya has a strong position here. Protect the base; don't over-invest for marginal gains.</div>
       </div>
 
       <div class="cohort-card">
         <div class="cohort-rank">#2 · Rank</div>
         <div class="cohort-label invest">Invest</div>
-        <h3 class="cohort-name">Traditional New</h3>
+        <h3 class="cohort-name">Classic New</h3>
         <div class="cohort-stats">
-          <div>Revenue share<strong>28.4%</strong></div>
+          <div>Revenue share<strong>28.0%</strong></div>
           <div>Growth<strong>Medium</strong></div>
           <div>Competition<strong>Medium</strong></div>
-          <div>Score<strong>63.0</strong></div>
+          <div>Score<strong>62.8</strong></div>
         </div>
-        <div class="cohort-insight">Appreciate Indian crafts. Buy a new saree every Diwali. Haven't heard of Taneira; don't know where the stores are.</div>
-        <div class="cohort-reasoning">28.4% revenue share with Medium growth potential and Medium competitive intensity. Room to grow; invest in acquisition and conversion to expand contribution.</div>
+        <div class="cohort-insight">Looking for heritage-quality occasion wear and willing to invest. Haven't discovered Okhiya yet; brand trust barrier and store discovery problem.</div>
+        <div class="cohort-reasoning">28.0% revenue share with Medium growth potential and Medium competitive intensity. Room to grow; invest in acquisition and conversion to expand contribution.</div>
       </div>
 
       <div class="cohort-card">
         <div class="cohort-rank">#3 · Rank</div>
         <div class="cohort-label invest">Invest</div>
-        <h3 class="cohort-name">Trendy Repeat</h3>
+        <h3 class="cohort-name">Contemporary Repeat</h3>
         <div class="cohort-stats">
-          <div>Revenue share<strong>13.4%</strong></div>
+          <div>Revenue share<strong>20.0%</strong></div>
           <div>Growth<strong>High</strong></div>
           <div>Competition<strong>Medium</strong></div>
-          <div>Score<strong>67.0</strong></div>
+          <div>Score<strong>71.0</strong></div>
         </div>
-        <div class="cohort-insight">Want to embrace their tradition and roots but also want to express themselves through their outfit.</div>
-        <div class="cohort-reasoning">13.4% revenue share with High growth potential and Medium competitive intensity. Room to grow; invest in acquisition and conversion.</div>
+        <div class="cohort-insight">Want occasion wear that signals taste and individuality. Return to brands that get the design-meets-craft balance right.</div>
+        <div class="cohort-reasoning">20.0% revenue share with High growth potential and Medium competitive intensity. Room to grow; invest in acquisition and conversion.</div>
       </div>
 
       <div class="cohort-card">
         <div class="cohort-rank">#4 · Rank</div>
         <div class="cohort-label invest">Invest</div>
-        <h3 class="cohort-name">Trendy New</h3>
+        <h3 class="cohort-name">Contemporary New</h3>
         <div class="cohort-stats">
-          <div>Revenue share<strong>6.1%</strong></div>
+          <div>Revenue share<strong>10.0%</strong></div>
           <div>Growth<strong>High</strong></div>
           <div>Competition<strong>High</strong></div>
-          <div>Score<strong>52.7</strong></div>
+          <div>Score<strong>55.0</strong></div>
         </div>
-        <div class="cohort-insight">Want to embrace tradition but also express personal style. May not know how to wear a saree.</div>
-        <div class="cohort-reasoning">6.1% revenue share with High growth potential and High competitive intensity. Room to grow; invest in acquisition and education.</div>
+        <div class="cohort-insight">Often dressing for their first formal events. Look to Instagram and brands for guidance on what to wear.</div>
+        <div class="cohort-reasoning">10.0% revenue share with High growth potential and High competitive intensity. Room to grow; invest in acquisition and education.</div>
       </div>
 
     </div>
@@ -1115,94 +1153,94 @@
       <div class="section-number">02</div>
       <div>
         <h2 class="section-title">Creative <em>Direction</em></h2>
-        <div class="section-kicker">Agent 3 · Powered by Claude Sonnet 4.5 · 4 API calls · $0.027 total</div>
+        <div class="section-kicker">Agent 3 · Powered by Claude Sonnet 4.5 · 4 API calls · $0.028 total</div>
       </div>
     </div>
 
     <div class="creative-cohort">
       <div class="creative-cohort-head">
-        <div class="creative-cohort-name">Traditional Repeat</div>
+        <div class="creative-cohort-name">Classic Repeat</div>
         <div class="creative-cohort-tag">DEFEND · retention-angled</div>
         <div class="api-badge">claude-sonnet-4-5 · $0.007</div>
       </div>
       <div class="routes-grid">
         <div class="route-card">
-          <h4 class="route-name">The Weave Collector's Registry</h4>
-          <div class="route-field"><span class="route-field-label">Concept</span>A personalized collector's journey celebrating each regional weave they add to their wardrobe, with a beautifully designed registry documenting their craft heritage.</div>
-          <div class="route-field"><span class="route-field-label">Rationale</span>Deepens loyalty by honoring their existing collection. Transforms repeat buying into a meaningful craft preservation journey. Reinforces trust by acknowledging their discerning taste.</div>
-          <div class="compliance">Approved vocab: weave · craft · heritage · tradition</div>
+          <h4 class="route-name">Your Atelier Remembers</h4>
+          <div class="route-field"><span class="route-field-label">Concept</span>A personalized program that acknowledges each customer's occasion history and proactively suggests hand-finished pieces for upcoming events in their calendar, reinforced by artisan stories behind their previous purchases.</div>
+          <div class="route-field"><span class="route-field-label">Rationale</span>Deepens loyalty by making repeat customers feel known and valued, not just transactional. Protects the base by creating emotional stickiness through personalization and craft storytelling. The atelier language elevates their relationship from shopper to patron.</div>
+          <div class="compliance">Approved vocab: atelier · hand-finished · artisan · occasion</div>
         </div>
         <div class="route-card">
-          <h4 class="route-name">This Diwali, Another Heirloom</h4>
-          <div class="route-field"><span class="route-field-label">Concept</span>Position each annual Diwali saree purchase as adding to their legacy collection, featuring pure silk pieces worthy of being passed down through generations.</div>
-          <div class="route-field"><span class="route-field-label">Rationale</span>Speaks to their established Diwali buying ritual while elevating purchases from occasion-wear to timeless investment. Reinforces quality and craft over volume.</div>
-          <div class="compliance">Approved vocab: pure · timeless · occasion · celebration</div>
+          <h4 class="route-name">Heirloom in the Making</h4>
+          <div class="route-field"><span class="route-field-label">Concept</span>A content-led initiative that follows customers' embroidered and beaded gowns through multiple milestone occasions, celebrating how Okhiya pieces become part of their family story and can be treasured across generations.</div>
+          <div class="route-field"><span class="route-field-label">Rationale</span>Reinforces the investment value of their purchases without defensive positioning. Honors their trust in Okhiya for important moments while subtly encouraging additional purchases for new chapters. Validates existing wardrobe choices and deepens brand affinity.</div>
+          <div class="compliance">Approved vocab: embroidery · celebration · heritage · timeless</div>
         </div>
       </div>
     </div>
 
     <div class="creative-cohort">
       <div class="creative-cohort-head">
-        <div class="creative-cohort-name">Traditional New</div>
+        <div class="creative-cohort-name">Classic New</div>
         <div class="creative-cohort-tag">INVEST · acquisition-angled</div>
         <div class="api-badge">claude-sonnet-4-5 · $0.007</div>
       </div>
       <div class="routes-grid">
         <div class="route-card">
-          <h4 class="route-name">Find Your Weave Home</h4>
-          <div class="route-field"><span class="route-field-label">Concept</span>A warm invitation campaign showcasing Taneira's store locations alongside the regional weaves each location houses, guiding saree collectors to discover their nearest craft destination.</div>
-          <div class="route-field"><span class="route-field-label">Rationale</span>Solves the awareness barrier by making store discovery feel like a journey to find authentic heritage. Positions Taneira as the accessible home for their growing collection.</div>
-          <div class="compliance">Approved vocab: weave · heritage · craft · pure</div>
+          <h4 class="route-name">Atelier Stories Unveiled</h4>
+          <div class="route-field"><span class="route-field-label">Concept</span>A documentary-style campaign featuring the artisans behind Okhiya's embroidered and beaded heirloom pieces, revealing the weeks of handwork that transform fabric into wearable heritage.</div>
+          <div class="route-field"><span class="route-field-label">Rationale</span>Builds brand trust by making the craft process transparent and tangible. The Creator archetype shines through real artisan stories, addressing the trust barrier while justifying the investment through provenance. This warm, rooted approach helps quality-conscious newcomers understand what makes Okhiya worth discovering.</div>
+          <div class="compliance">Approved vocab: atelier · artisan · embroidery · heritage</div>
         </div>
         <div class="route-card">
-          <h4 class="route-name">The Artisan Atlas</h4>
-          <div class="route-field"><span class="route-field-label">Concept</span>An episodic storytelling series mapping India's handloom regions to Taneira stores, featuring master artisans and their traditional patterns, ending each story with 'Now closer to you at...'</div>
-          <div class="route-field"><span class="route-field-label">Rationale</span>Educates the cohort on the crafts they already appreciate while building Taneira brand affinity through artisan narratives. Transforms store location awareness into celebration of tradition.</div>
-          <div class="compliance">Approved vocab: artisan · handloom · tradition · occasion</div>
+          <h4 class="route-name">Your Celebration Awaits</h4>
+          <div class="route-field"><span class="route-field-label">Concept</span>Intimate lookbook campaign featuring real customers wearing hand-finished Okhiya gowns at their milestone occasions, paired with store location stories and guided discovery paths.</div>
+          <div class="route-field"><span class="route-field-label">Rationale</span>Solves the store discovery problem by weaving location information into celebration narratives that resonate emotionally. Positions Okhiya as the destination for those seeking timeless occasion wear worth investing in. The Lover archetype connects through authentic wearer stories while building confidence for first-time visitors.</div>
+          <div class="compliance">Approved vocab: hand-finished · celebration · occasion · timeless</div>
         </div>
       </div>
     </div>
 
     <div class="creative-cohort">
       <div class="creative-cohort-head">
-        <div class="creative-cohort-name">Trendy Repeat</div>
-        <div class="creative-cohort-tag">INVEST · acquisition-angled</div>
-        <div class="api-badge">claude-sonnet-4-5 · $0.006</div>
-      </div>
-      <div class="routes-grid">
-        <div class="route-card">
-          <h4 class="route-name">Craft Meets Canvas</h4>
-          <div class="route-field"><span class="route-field-label">Concept</span>A campaign positioning designer blended silk sarees as wearable art where heritage weaves become the canvas for contemporary self-expression.</div>
-          <div class="route-field"><span class="route-field-label">Rationale</span>Speaks to the duality of wanting tradition with personal flair. Frames each saree as both craft and creative expression, validating their desire to honor roots while making bold style statements.</div>
-          <div class="compliance">Approved vocab: craft · heritage · weave · artisan</div>
-        </div>
-        <div class="route-card">
-          <h4 class="route-name">Rooted, Reimagined</h4>
-          <div class="route-field"><span class="route-field-label">Concept</span>Celebrate how pure silk traditions evolve through designer patterns that honor the handloom legacy while speaking a modern design language.</div>
-          <div class="route-field"><span class="route-field-label">Rationale</span>Positions their choice as evolution, not rejection of tradition. Appeals to their growth mindset and desire for uniqueness while maintaining cultural connection.</div>
-          <div class="compliance">Approved vocab: rooted · tradition · pure · handloom</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="creative-cohort">
-      <div class="creative-cohort-head">
-        <div class="creative-cohort-name">Trendy New</div>
+        <div class="creative-cohort-name">Contemporary Repeat</div>
         <div class="creative-cohort-tag">INVEST · acquisition-angled</div>
         <div class="api-badge">claude-sonnet-4-5 · $0.007</div>
       </div>
       <div class="routes-grid">
         <div class="route-card">
-          <h4 class="route-name">Your Canvas, Your Heritage</h4>
-          <div class="route-field"><span class="route-field-label">Concept</span>Positions Taneira's designer blended silks as the canvas for self-expression, featuring young women styling sarees in contemporary ways while celebrating the craft and weave stories behind each piece.</div>
-          <div class="route-field"><span class="route-field-label">Rationale</span>Empowers the cohort to see tradition as a medium for personal style rather than a constraint. Educational component addresses styling uncertainty; design focus speaks to pattern preference.</div>
-          <div class="compliance">Approved vocab: heritage · craft · weave · celebration</div>
+          <h4 class="route-name">Your Signature, Our Craft</h4>
+          <div class="route-field"><span class="route-field-label">Concept</span>A campaign celebrating how Okhiya's artisan silhouettes become personal signatures, spotlighting customers who've made the contemporary designs their go-to for occasions that matter.</div>
+          <div class="route-field"><span class="route-field-label">Rationale</span>Speaks directly to the cohort's desire for individuality while reinforcing the design-craft balance they value. By featuring real wearers and their stories, validates their taste and builds emotional equity that drives repeat purchase. The focus on 'signature' elevates the relationship from transactional to identity-based.</div>
+          <div class="compliance">Approved vocab: artisan · craft · occasion · contemporary</div>
+        </div>
+        <div class="route-card">
+          <h4 class="route-name">Behind the Atelier</h4>
+          <div class="route-field"><span class="route-field-label">Concept</span>An immersive content series revealing the artisan techniques and heritage weaves behind Okhiya's most sought-after contemporary pieces, positioning each garment as a collision of tradition and modern design vision.</div>
+          <div class="route-field"><span class="route-field-label">Rationale</span>Feeds the cohort's appreciation for the craft-design intersection by pulling back the curtain on process and provenance. Educates while elevating, giving them the narrative depth to feel confident in their choices and share their discernment. The storytelling approach builds brand affinity that converts browsers into committed repeat customers.</div>
+          <div class="compliance">Approved vocab: atelier · artisan · heritage · weave</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="creative-cohort">
+      <div class="creative-cohort-head">
+        <div class="creative-cohort-name">Contemporary New</div>
+        <div class="creative-cohort-tag">INVEST · acquisition-angled</div>
+        <div class="api-badge">claude-sonnet-4-5 · $0.007</div>
+      </div>
+      <div class="routes-grid">
+        <div class="route-card">
+          <h4 class="route-name">Your First Chapter</h4>
+          <div class="route-field"><span class="route-field-label">Concept</span>A digital-first campaign showcasing real wearers at their milestone occasions, first wedding, first festive hosting, first formal celebration, paired with the artisan story behind each handcrafted piece.</div>
+          <div class="route-field"><span class="route-field-label">Rationale</span>Speaks directly to the cohort's need for guidance while celebrating their authentic moments. By featuring relatable stories alongside craft heritage, builds confidence and creates Instagram-worthy content that educates and inspires. The artisan connection adds depth that differentiates Okhiya from fast-fashion competitors.</div>
+          <div class="compliance">Approved vocab: occasion · artisan · handcrafted · craft</div>
         </div>
         <div class="route-card">
           <h4 class="route-name">Rooted in You</h4>
-          <div class="route-field"><span class="route-field-label">Concept</span>A storytelling campaign where each designer blended silk pattern becomes a conversation starter, connecting the wearer's personal milestones and occasions to the timeless tradition of the craft.</div>
-          <div class="route-field"><span class="route-field-label">Rationale</span>Frames tradition as something that enhances rather than dictates their personal narrative. Occasion-based approach gives them permission to experiment while feeling anchored.</div>
-          <div class="compliance">Approved vocab: rooted · tradition · occasion · timeless</div>
+          <div class="route-field"><span class="route-field-label">Concept</span>An interactive style guide campaign pairing contemporary silhouettes with their heritage weave or embroidery techniques, positioning each piece as both timeless tradition and modern celebration.</div>
+          <div class="route-field"><span class="route-field-label">Rationale</span>Addresses the guidance-seeking behavior of the cohort while establishing Okhiya's design authority. By connecting contemporary silhouettes to traditional craft, delivers the Instagram-friendly aesthetic they seek with the rooted authenticity they may not yet know they value. The educational angle builds loyalty beyond the first purchase.</div>
+          <div class="compliance">Approved vocab: contemporary · heritage · weave · embroidery · rooted · celebration</div>
         </div>
       </div>
     </div>
@@ -1229,23 +1267,23 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="cohort-header"><td colspan="4">Traditional Repeat · DEFEND</td><td class="eff">Weighted effectiveness: 1.451x</td></tr>
+        <tr class="cohort-header"><td colspan="4">Classic Repeat · DEFEND</td><td class="eff">Weighted effectiveness: 1.451x</td></tr>
         <tr><td class="channel-name">Email / CRM (house list)</td><td>1.50x</td><td>Direct</td><td class="pct">35%</td><td>Warm list · 2–3% open-to-purchase</td></tr>
         <tr><td class="channel-name">Referral / word-of-mouth</td><td>1.45x</td><td>Direct</td><td class="pct">33%</td><td>10–15% conversion from referred leads</td></tr>
         <tr><td class="channel-name">In-store clienteling</td><td>1.40x</td><td>Direct</td><td class="pct">32%</td><td>30–40% conversion on targeted outreach</td></tr>
 
-        <tr class="cohort-header"><td colspan="4">Traditional New · INVEST</td><td class="eff">Weighted effectiveness: 1.369x</td></tr>
+        <tr class="cohort-header"><td colspan="4">Classic New · INVEST</td><td class="eff">Weighted effectiveness: 1.369x</td></tr>
         <tr><td class="channel-name">Referral / word-of-mouth</td><td>1.45x</td><td>Direct</td><td class="pct">35%</td><td>10–15% conversion from referred leads</td></tr>
-        <tr><td class="channel-name">Cross-brand CRM (Tata ecosystem)</td><td>1.35x</td><td>Direct</td><td class="pct">33%</td><td>3–5% conversion from Tanishq/Westside/Titan lists</td></tr>
+        <tr><td class="channel-name">Cross-brand CRM (partner network)</td><td>1.35x</td><td>Direct</td><td class="pct">33%</td><td>3–5% conversion from partner-brand lists</td></tr>
         <tr><td class="channel-name">Google Search / Shopping</td><td>1.30x</td><td>Direct</td><td class="pct">32%</td><td>4–6% on high-intent queries</td></tr>
 
-        <tr class="cohort-header"><td colspan="4">Trendy Repeat · INVEST</td><td class="eff">Weighted effectiveness: 1.359x</td></tr>
+        <tr class="cohort-header"><td colspan="4">Contemporary Repeat · INVEST</td><td class="eff">Weighted effectiveness: 1.359x</td></tr>
         <tr><td class="channel-name">Email / CRM (house list)</td><td>1.50x</td><td>Direct</td><td class="pct">37%</td><td>2–3% open-to-purchase on warm list</td></tr>
-        <tr><td class="channel-name">WhatsApp Business</td><td>1.30x</td><td>Direct</td><td class="pct">32%</td><td>8–12% click-to-store, 3–5% purchase</td></tr>
+        <tr><td class="channel-name">SMS / Messaging Business</td><td>1.30x</td><td>Direct</td><td class="pct">32%</td><td>8–12% click-to-store, 3–5% purchase</td></tr>
         <tr><td class="channel-name">Influencer partnerships</td><td>1.25x</td><td>Indirect</td><td class="pct">31%</td><td>5–8% engagement-to-store-visit</td></tr>
 
-        <tr class="cohort-header"><td colspan="4">Trendy New · INVEST</td><td class="eff">Weighted effectiveness: 1.302x</td></tr>
-        <tr><td class="channel-name">Cross-brand CRM (Tata ecosystem)</td><td>1.35x</td><td>Direct</td><td class="pct">35%</td><td>3–5% conversion from Tata lists</td></tr>
+        <tr class="cohort-header"><td colspan="4">Contemporary New · INVEST</td><td class="eff">Weighted effectiveness: 1.302x</td></tr>
+        <tr><td class="channel-name">Cross-brand CRM (partner network)</td><td>1.35x</td><td>Direct</td><td class="pct">35%</td><td>3–5% conversion from partner-brand lists</td></tr>
         <tr><td class="channel-name">Google Search / Shopping</td><td>1.30x</td><td>Direct</td><td class="pct">33%</td><td>4–6% on high-intent queries</td></tr>
         <tr><td class="channel-name">Influencer partnerships</td><td>1.25x</td><td>Indirect</td><td class="pct">32%</td><td>5–8% engagement-to-store-visit</td></tr>
       </tbody>
@@ -1265,146 +1303,146 @@
     <div class="budget-header">
       <div>
         <div class="budget-stat-label">Total Envelope</div>
-        <div class="budget-stat-value">₹50 Cr</div>
+        <div class="budget-stat-value">$6.0M</div>
         <div class="budget-stat-sub">Row 17 · Assumptions sheet</div>
       </div>
       <div>
         <div class="budget-stat-label">Creative Production · 30%</div>
-        <div class="budget-stat-value">₹15.0 Cr</div>
+        <div class="budget-stat-value">$1.80M</div>
         <div class="budget-stat-sub">Row 18 · premium apparel ratio</div>
       </div>
       <div>
         <div class="budget-stat-label">Media Pool · 70%</div>
-        <div class="budget-stat-value">₹35.0 Cr</div>
+        <div class="budget-stat-value">$4.20M</div>
         <div class="budget-stat-sub">Row 19 · deployed across cohorts</div>
       </div>
     </div>
 
-    <!-- Traditional Repeat -->
+    <!-- Classic Repeat -->
     <div class="chain-cohort">
       <div class="chain-head">
         <div class="chain-head-left">
-          <div class="chain-cohort-name">Traditional Repeat</div>
+          <div class="chain-cohort-name">Classic Repeat</div>
           <div class="chain-cohort-rank">Rank #1 · DEFEND</div>
         </div>
-        <div class="chain-allocated"><strong>₹14.0 Cr</strong>allocated · 40% of media pool</div>
+        <div class="chain-allocated"><strong>$1.68M</strong>allocated · 40% of media pool</div>
       </div>
       <table class="chain-table">
         <thead>
-          <tr><th>Channel</th><th>Budget %</th><th>₹ Cr</th><th>Cost / reach</th><th>Reachable</th></tr>
+          <tr><th>Channel</th><th>Budget %</th><th>$M</th><th>Cost / reach</th><th>Reachable</th></tr>
         </thead>
         <tbody>
-          <tr><td class="channel">Email / CRM (house list)</td><td>35%</td><td>₹4.90</td><td>₹25</td><td>1,960,000</td></tr>
-          <tr><td class="channel">Referral / word-of-mouth</td><td>33%</td><td>₹4.62</td><td>₹250</td><td>184,800</td></tr>
-          <tr><td class="channel">In-store clienteling</td><td>32%</td><td>₹4.48</td><td>₹350</td><td>128,000</td></tr>
-          <tr class="sum-row"><td>Sum of channel reach</td><td></td><td></td><td></td><td>2,272,800</td></tr>
-          <tr class="dedup-row"><td>De-duplication haircut (−20%)</td><td></td><td></td><td></td><td>−454,560</td></tr>
-          <tr class="unique-row"><td>Unique customers reachable</td><td></td><td></td><td></td><td>1,818,240</td></tr>
+          <tr><td class="channel">Email / CRM (house list)</td><td>35%</td><td>$0.59</td><td>$3</td><td>196,000</td></tr>
+          <tr><td class="channel">Referral / word-of-mouth</td><td>33%</td><td>$0.55</td><td>$30</td><td>18,466</td></tr>
+          <tr><td class="channel">In-store clienteling</td><td>32%</td><td>$0.54</td><td>$75</td><td>7,173</td></tr>
+          <tr class="sum-row"><td>Sum of channel reach</td><td></td><td></td><td></td><td>221,639</td></tr>
+          <tr class="dedup-row"><td>De-duplication haircut (−20%)</td><td></td><td></td><td></td><td>−44,328</td></tr>
+          <tr class="unique-row"><td>Unique customers reachable</td><td></td><td></td><td></td><td>177,311</td></tr>
         </tbody>
       </table>
       <div class="chain-verdict-row cohort-limited">
         <div class="constraint-tag">Cohort-limited</div>
         <div class="chain-verdict-body">
-          <strong>Final reach: 300,000 / 300,000 customers · 100%</strong><br>
-          Budget exceeds what's needed. Every additional rupee reaches zero new customers; the constraint is cohort size, not budget.
+          <strong>Final reach: 30,000 / 30,000 customers · 100%</strong><br>
+          Budget exceeds what's needed. Every additional dollar reaches zero new customers; the constraint is cohort size, not budget.
         </div>
-        <div class="chain-uplift">₹52.2 Cr</div>
+        <div class="chain-uplift">$1.57M</div>
       </div>
     </div>
 
-    <!-- Traditional New -->
+    <!-- Classic New -->
     <div class="chain-cohort">
       <div class="chain-head">
         <div class="chain-head-left">
-          <div class="chain-cohort-name">Traditional New</div>
+          <div class="chain-cohort-name">Classic New</div>
           <div class="chain-cohort-rank">Rank #2 · INVEST</div>
         </div>
-        <div class="chain-allocated"><strong>₹12.2 Cr</strong>allocated · 35% of media pool</div>
+        <div class="chain-allocated"><strong>$1.47M</strong>allocated · 35% of media pool</div>
       </div>
       <table class="chain-table">
         <thead>
-          <tr><th>Channel</th><th>Budget %</th><th>₹ Cr</th><th>Cost / reach</th><th>Reachable</th></tr>
+          <tr><th>Channel</th><th>Budget %</th><th>$M</th><th>Cost / reach</th><th>Reachable</th></tr>
         </thead>
         <tbody>
-          <tr><td class="channel">Referral / word-of-mouth</td><td>35%</td><td>₹4.29</td><td>₹250</td><td>171,600</td></tr>
-          <tr><td class="channel">Cross-brand CRM (Tata ecosystem)</td><td>33%</td><td>₹4.04</td><td>₹90</td><td>448,888</td></tr>
-          <tr><td class="channel">Google Search / Shopping</td><td>32%</td><td>₹3.92</td><td>₹180</td><td>217,777</td></tr>
-          <tr class="sum-row"><td>Sum of channel reach</td><td></td><td></td><td></td><td>838,265</td></tr>
-          <tr class="dedup-row"><td>De-duplication haircut (−20%)</td><td></td><td></td><td></td><td>−167,653</td></tr>
-          <tr class="unique-row"><td>Unique customers reachable</td><td></td><td></td><td></td><td>670,612</td></tr>
+          <tr><td class="channel">Referral / word-of-mouth</td><td>35%</td><td>$0.51</td><td>$30</td><td>17,133</td></tr>
+          <tr><td class="channel">Cross-brand CRM (partner network)</td><td>33%</td><td>$0.48</td><td>$12</td><td>40,416</td></tr>
+          <tr><td class="channel">Google Search / Shopping</td><td>32%</td><td>$0.47</td><td>$60</td><td>7,833</td></tr>
+          <tr class="sum-row"><td>Sum of channel reach</td><td></td><td></td><td></td><td>65,382</td></tr>
+          <tr class="dedup-row"><td>De-duplication haircut (−20%)</td><td></td><td></td><td></td><td>−13,077</td></tr>
+          <tr class="unique-row"><td>Unique customers reachable</td><td></td><td></td><td></td><td>52,305</td></tr>
         </tbody>
       </table>
       <div class="chain-verdict-row budget-limited">
         <div class="constraint-tag">Budget-limited</div>
         <div class="chain-verdict-body">
-          <strong>Final reach: 670,612 / 700,000 customers · 96%</strong><br>
-          Close to saturation, but 29,388 customers remain out of reach. More media budget would directly convert to more people reached.
+          <strong>Final reach: 52,305 / 75,000 customers · 70%</strong><br>
+          Close to two-thirds reach, with 22,695 customers remaining out of reach. More media budget would directly convert to more people reached.
         </div>
-        <div class="chain-uplift">₹73.4 Cr</div>
+        <div class="chain-uplift">$2.29M</div>
       </div>
     </div>
 
-    <!-- Trendy Repeat -->
+    <!-- Contemporary Repeat -->
     <div class="chain-cohort">
       <div class="chain-head">
         <div class="chain-head-left">
-          <div class="chain-cohort-name">Trendy Repeat</div>
+          <div class="chain-cohort-name">Contemporary Repeat</div>
           <div class="chain-cohort-rank">Rank #3 · INVEST</div>
         </div>
-        <div class="chain-allocated"><strong>₹5.2 Cr</strong>allocated · 15% of media pool</div>
+        <div class="chain-allocated"><strong>$0.63M</strong>allocated · 15% of media pool</div>
       </div>
       <table class="chain-table">
         <thead>
-          <tr><th>Channel</th><th>Budget %</th><th>₹ Cr</th><th>Cost / reach</th><th>Reachable</th></tr>
+          <tr><th>Channel</th><th>Budget %</th><th>$M</th><th>Cost / reach</th><th>Reachable</th></tr>
         </thead>
         <tbody>
-          <tr><td class="channel">Email / CRM (house list)</td><td>37%</td><td>₹1.94</td><td>₹25</td><td>776,000</td></tr>
-          <tr><td class="channel">WhatsApp Business</td><td>32%</td><td>₹1.68</td><td>₹100</td><td>168,000</td></tr>
-          <tr><td class="channel">Influencer partnerships</td><td>31%</td><td>₹1.63</td><td>₹200</td><td>81,499</td></tr>
-          <tr class="sum-row"><td>Sum of channel reach</td><td></td><td></td><td></td><td>1,025,499</td></tr>
-          <tr class="dedup-row"><td>De-duplication haircut (−20%)</td><td></td><td></td><td></td><td>−205,100</td></tr>
-          <tr class="unique-row"><td>Unique customers reachable</td><td></td><td></td><td></td><td>820,399</td></tr>
+          <tr><td class="channel">Email / CRM (house list)</td><td>37%</td><td>$0.23</td><td>$3</td><td>77,666</td></tr>
+          <tr><td class="channel">SMS / Messaging Business</td><td>32%</td><td>$0.20</td><td>$10</td><td>20,200</td></tr>
+          <tr><td class="channel">Influencer partnerships</td><td>31%</td><td>$0.20</td><td>$120</td><td>1,625</td></tr>
+          <tr class="sum-row"><td>Sum of channel reach</td><td></td><td></td><td></td><td>99,491</td></tr>
+          <tr class="dedup-row"><td>De-duplication haircut (−20%)</td><td></td><td></td><td></td><td>−19,899</td></tr>
+          <tr class="unique-row"><td>Unique customers reachable</td><td></td><td></td><td></td><td>79,592</td></tr>
         </tbody>
       </table>
-      <div class="chain-verdict-row budget-limited">
-        <div class="constraint-tag">Budget-limited</div>
+      <div class="chain-verdict-row cohort-limited">
+        <div class="constraint-tag">Cohort-limited</div>
         <div class="chain-verdict-body">
-          <strong>Final reach: 820,399 / 900,000 customers · 91%</strong><br>
-          Nearly saturated. The last 9% requires disproportionate spend; diminishing returns territory.
+          <strong>Final reach: 60,000 / 60,000 customers · 100%</strong><br>
+          Budget exceeds what's needed. The reachable pool of 79,592 is capped at the cohort size of 60,000; every additional dollar adds no new reach.
         </div>
-        <div class="chain-uplift">₹80.3 Cr</div>
+        <div class="chain-uplift">$2.28M</div>
       </div>
     </div>
 
-    <!-- Trendy New -->
+    <!-- Contemporary New -->
     <div class="chain-cohort">
       <div class="chain-head">
         <div class="chain-head-left">
-          <div class="chain-cohort-name">Trendy New</div>
+          <div class="chain-cohort-name">Contemporary New</div>
           <div class="chain-cohort-rank">Rank #4 · INVEST</div>
         </div>
-        <div class="chain-allocated"><strong>₹3.5 Cr</strong>allocated · 10% of media pool</div>
+        <div class="chain-allocated"><strong>$0.42M</strong>allocated · 10% of media pool</div>
       </div>
       <table class="chain-table">
         <thead>
-          <tr><th>Channel</th><th>Budget %</th><th>₹ Cr</th><th>Cost / reach</th><th>Reachable</th></tr>
+          <tr><th>Channel</th><th>Budget %</th><th>$M</th><th>Cost / reach</th><th>Reachable</th></tr>
         </thead>
         <tbody>
-          <tr><td class="channel">Cross-brand CRM (Tata ecosystem)</td><td>35%</td><td>₹1.23</td><td>₹90</td><td>136,666</td></tr>
-          <tr><td class="channel">Google Search / Shopping</td><td>33%</td><td>₹1.16</td><td>₹180</td><td>64,444</td></tr>
-          <tr><td class="channel">Influencer partnerships</td><td>32%</td><td>₹1.12</td><td>₹200</td><td>56,000</td></tr>
-          <tr class="sum-row"><td>Sum of channel reach</td><td></td><td></td><td></td><td>257,110</td></tr>
-          <tr class="dedup-row"><td>De-duplication haircut (−20%)</td><td></td><td></td><td></td><td>−51,422</td></tr>
-          <tr class="unique-row"><td>Unique customers reachable</td><td></td><td></td><td></td><td>205,688</td></tr>
+          <tr><td class="channel">Cross-brand CRM (partner network)</td><td>35%</td><td>$0.15</td><td>$12</td><td>12,250</td></tr>
+          <tr><td class="channel">Google Search / Shopping</td><td>33%</td><td>$0.14</td><td>$60</td><td>2,316</td></tr>
+          <tr><td class="channel">Influencer partnerships</td><td>32%</td><td>$0.13</td><td>$120</td><td>1,116</td></tr>
+          <tr class="sum-row"><td>Sum of channel reach</td><td></td><td></td><td></td><td>15,682</td></tr>
+          <tr class="dedup-row"><td>De-duplication haircut (−20%)</td><td></td><td></td><td></td><td>−3,137</td></tr>
+          <tr class="unique-row"><td>Unique customers reachable</td><td></td><td></td><td></td><td>12,545</td></tr>
         </tbody>
       </table>
       <div class="chain-verdict-row budget-limited">
         <div class="constraint-tag">Budget-limited</div>
         <div class="chain-verdict-body">
-          <strong>Final reach: 205,688 / 1,500,000 customers · 14%</strong><br>
-          The growth frontier. This cohort is where the next rupee would do the most work; high growth potential but severely under-funded at the current 10% media allocation.
+          <strong>Final reach: 12,545 / 100,000 customers · 13%</strong><br>
+          The growth frontier. This cohort is where the next dollar would do the most work; high growth potential but severely under-funded at the current 10% media allocation.
         </div>
-        <div class="chain-uplift">₹10.7 Cr</div>
+        <div class="chain-uplift">$0.26M</div>
       </div>
     </div>
   </section>
@@ -1412,19 +1450,19 @@
   <!-- ═══════════════════════════════════════════════ FINAL VERDICT ═══════════════════════════════════════════════ -->
   <section class="final-verdict">
     <div class="final-verdict-label">Forecast · Risk-Adjusted · −10% Haircut</div>
-    <div class="final-verdict-main">On Track<br>with <em>9.9% buffer.</em></div>
+    <div class="final-verdict-main">On Track<br>with <em>6.7% buffer.</em></div>
     <div class="final-verdict-numbers">
       <div class="fvn-block">
         <div class="fvn-label">Target uplift</div>
-        <div class="fvn-value target">₹177.4 Cr</div>
+        <div class="fvn-value target">$5.40M</div>
       </div>
       <div class="fvn-block">
         <div class="fvn-label">Projected</div>
-        <div class="fvn-value projected">₹194.9 Cr</div>
+        <div class="fvn-value projected">$5.76M</div>
       </div>
       <div class="fvn-block">
         <div class="fvn-label">Buffer</div>
-        <div class="fvn-value buffer">+₹17.5 Cr</div>
+        <div class="fvn-value buffer">+$0.36M</div>
       </div>
     </div>
   </section>
@@ -1432,10 +1470,10 @@
   <!-- ═══════════════════════════════════════════════ FOOTER ═══════════════════════════════════════════════ -->
   <footer class="footer">
     <div class="footer-left">
-      <strong>Agentic GTM Playbook · Campaign Planning Layer</strong>
+      <strong>AMOS · Campaign Planning Layer</strong>
       Built solo for the Claude@Stanford Buildathon, April 11 2026.
       The campaign planning layer is the first built slice of a broader research agenda on
-      agent-native GTM operations, supervised by Prof. Yuyan Wang at Stanford GSB.
+      agent-native operations across marketing, GTM, and growth, supervised by Prof. Yuyan Wang at Stanford GSB.
     </div>
     <div class="footer-right">
       Shobhika Mathur<br>
